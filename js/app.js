@@ -1,5 +1,4 @@
 'use strict';
-const storeList = [seattle, tokyo, dubai, paris, lima];
 const seattle = {
   name: 'Seattle',
   hours: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'],
@@ -10,7 +9,7 @@ const seattle = {
   cookiesPerHour: [],
   getHourlyCust: function() {
     for (let i = 0; i < this.hours.length; i++) {
-      this.custPerHour[i] = Math.floor(Math.random() * (this.maxHourlyCust - this.minHourlyCust + 1) + this.minHourlyCust);
+      this.custPerHour[i] = Math.random() * (this.maxHourlyCust - this.minHourlyCust + 1) + this.minHourlyCust;
     }
   },
   getHourlyCookies: function() {
@@ -36,7 +35,7 @@ const tokyo = {
   cookiesPerHour: [],
   getHourlyCust: function() {
     for (let i = 0; i < this.hours.length; i++) {
-      this.custPerHour[i] = Math.floor(Math.random() * (this.maxHourlyCust - this.minHourlyCust + 1) + this.minHourlyCust);
+      this.custPerHour[i] = Math.random() * (this.maxHourlyCust - this.minHourlyCust + 1) + this.minHourlyCust;
     }
   },
   getHourlyCookies: function() {
@@ -62,7 +61,7 @@ const dubai = {
   cookiesPerHour: [],
   getHourlyCust: function() {
     for (let i = 0; i < this.hours.length; i++) {
-      this.custPerHour[i] = Math.floor(Math.random() * (this.maxHourlyCust - this.minHourlyCust + 1) + this.minHourlyCust);
+      this.custPerHour[i] = Math.random() * (this.maxHourlyCust - this.minHourlyCust + 1) + this.minHourlyCust;
     }
   },
   getHourlyCookies: function() {
@@ -83,12 +82,12 @@ const paris = {
   hours: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'],
   minHourlyCust: 20,
   maxHourlyCust: 38,
-  avgCookieSale: 2.3,
+  avgCookieSales: 2.3,
   custPerHour: [],
   cookiesPerHour: [],
   getHourlyCust: function() {
     for (let i = 0; i < this.hours.length; i++) {
-      this.custPerHour[i] = Math.floor(Math.random() * (this.maxHourlyCust - this.minHourlyCust + 1) + this.minHourlyCust);
+      this.custPerHour[i] = Math.random() * (this.maxHourlyCust - this.minHourlyCust + 1) + this.minHourlyCust;
     }
   },
   getHourlyCookies: function() {
@@ -114,7 +113,7 @@ const lima = {
   cookiesPerHour: [],
   getHourlyCust: function() {
     for (let i = 0; i < this.hours.length; i++) {
-      this.custPerHour[i] = Math.floor(Math.random() * (this.maxHourlyCust - this.minHourlyCust + 1) + this.minHourlyCust);
+      this.custPerHour[i] = Math.random() * (this.maxHourlyCust - this.minHourlyCust + 1) + this.minHourlyCust;
     }
   },
   getHourlyCookies: function() {
@@ -130,6 +129,7 @@ const lima = {
     return cookieTotals;
   }
 };
+const storeList = [seattle, tokyo, dubai, paris, lima];
 const storesSectionElem = document.getElementById('locations');
 for (let i = 0; i < storeList.length; i++) {
   storeResults(storeList[i]);
@@ -146,6 +146,7 @@ function renderStoreList(store) {
   h2Elem.textContent = store.name;
   articleElem.appendChild(h2Elem);
   let ulElem = document.createElement('ul');
+  articleElem.appendChild(ulElem);
   for (let i = 0; i < store.hours.length; i++) {
     let liElem = document.createElement('li');
     liElem.textContent = `${store.hours[i]}: ${store.cookiesPerHour[i]}`;
