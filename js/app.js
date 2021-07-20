@@ -25,36 +25,22 @@ function Store(name, openingTime, closingTime, minHourlyCust, maxHourlyCust, avg
     return cookieTotals;
   };
 }
-
-  // name: 'Seattle',
-  // minHourlyCust: 23,
-  // maxHourlyCust: 65,
-  // avgCookieSales: 6.3,
+Store.prototype.renderStoreData = function () {
   
-  // name: 'Tokyo',
-  // minHourlyCust: 3,
-  // maxHourlyCust: 24,
-  // avgCookieSales: 1.2,
-  
-  // name: 'Dubai',
-  // minHourlyCust: 11,
-  // maxHourlyCust: 38,
-  // avgCookieSales: 3.7,
-  
-  // name: 'Paris',
-  // minHourlyCust: 20,
-  // maxHourlyCust: 38,
-  // avgCookieSales: 2.3,
-  
-  // name: 'Lima',
-  // minHourlyCust: 2,
-  // maxHourlyCust: 16,
-  // avgCookieSales: 4.6,
-  
-const storeList = [];
+}
+function addStore(name, openingTime, closingTime, minHourlyCust, maxHourlyCust, avgCookieSales) {
+  const store = new Store(name, openingTime, closingTime, minHourlyCust, maxHourlyCust, avgCookieSales);
+  Store.storeList.push(store);
+}
+addStore('Seattle', 6, 20, 23, 65, 6.3);
+addStore('Tokyo', 6, 20, 3, 24, 1.2);
+addStore('Dubai', 6, 20, 11, 38, 3.7);
+addStore('Paris', 6, 20, 20, 38, 2.3);
+addStore('Lima', 6, 20, 2, 16, 4.6);
+Store.storeList = [];
 const storesSectionElem = document.getElementById('locations');
-for (let i = 0; i < storeList.length; i++) {
-  renderStoreList(storeList[i]);
+for (let i = 0; i < Store.storeList.length; i++) {
+  
 }
 function renderStoreList(store) {
   let articleElem = document.createElement('article');
