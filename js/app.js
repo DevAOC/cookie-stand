@@ -130,9 +130,15 @@ const lima = {
     return cookieTotals;
   }
 };
+const storesSectionElem = document.getElementById(locations);
 for (let i = 0; i < storeList.length; i++) {
-  
+  storeResults(storeList[i]);
+  renderStoreList(storeList[i]);
 }
-function renderStoreList(storeList) {
+function storeResults(store) {
+  store.getHourlyCust();
+  store.getHourlyCookies();
+}
+function renderStoreList(store) {
   
 }
