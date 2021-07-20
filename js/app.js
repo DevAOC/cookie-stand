@@ -130,7 +130,7 @@ const lima = {
     return cookieTotals;
   }
 };
-const storesSectionElem = document.getElementById(locations);
+const storesSectionElem = document.getElementById('locations');
 for (let i = 0; i < storeList.length; i++) {
   storeResults(storeList[i]);
   renderStoreList(storeList[i]);
@@ -140,5 +140,18 @@ function storeResults(store) {
   store.getHourlyCookies();
 }
 function renderStoreList(store) {
-  
+  let articleElem = document.createElement('article');
+  storesSectionElem.appendChild(articleElem);
+  let h2Elem = document.createElement('h2');
+  h2Elem.textContent = store.name;
+  articleElem.appendChild(h2Elem);
+  let ulElem = document.createElement('ul');
+  for (let i = 0; i < store.hours.length; i++) {
+    let liElem = document.createElement('li');
+    liElem.textContent = `${store.hours[i]}: ${store.cookiesPerHour[i]}`;
+    ulElem.appendChild(liElem);
+  }
+  let liElem = document.createElement('li');
+  liElem.textContent = `Total: ${store.getCookieTotals()}`;
+  ulElem.appendChild(liElem);
 }
