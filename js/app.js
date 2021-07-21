@@ -44,6 +44,12 @@ function addStore(name, minHourlyCust, maxHourlyCust, avgCookieSales) {
   storeList.push(store);
 }
 
+function calculateAllResults() {
+  for (let i = 0; i < storeList.length; i++) {
+    storeList[i].calculateResults();
+  }
+}
+
 function makeElem(tagName, parent, textContent) {
   let elem = document.createElement(tagName);
   if (textContent) {
@@ -104,7 +110,5 @@ addStore('Tokyo', 3, 24, 1.2);
 addStore('Dubai', 11, 38, 3.7);
 addStore('Paris', 20, 38, 2.3);
 addStore('Lima', 2, 16, 4.6);
-for (let i = 0; i < storeList.length; i++) {
-  storeList[i].calculateResults();
-}
+calculateAllResults();
 renderDataTable();
