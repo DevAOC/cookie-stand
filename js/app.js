@@ -1,12 +1,4 @@
 'use strict';
-Store.storeList = [];
-const hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
-addStore('Seattle', 23, 65, 6.3);
-addStore('Tokyo', 3, 24, 1.2);
-addStore('Dubai', 11, 38, 3.7);
-addStore('Paris', 20, 38, 2.3);
-addStore('Lima', 2, 16, 4.6);
-renderDataTable();
 function Store(name, minHourlyCust, maxHourlyCust, avgCookieSales) {
   this.name = name;
   this.minHourlyCust = minHourlyCust;
@@ -14,22 +6,37 @@ function Store(name, minHourlyCust, maxHourlyCust, avgCookieSales) {
   this.avgCookieSales = avgCookieSales;
   this.cookiesPerHour = [];
   this.cookieTotals = 0;
-  (function() { // Self calling method to fill cookiesPerHour array
+  this.getCookiesPerHour = function() {
     for (let i = 0; i < hours.length; i++) {
       let custPerHour = Math.random() * (this.maxHourlyCust - this.minHourlyCust + 1) + this.minHourlyCust;
       this.cookiesPerHour[i] = Math.floor(custPerHour * this.avgCookieSales);
     }
-  }());
-  (function() {
+  };
+  this.getCookieTotals = function() {
     for (let i = 0; i < this.cookiesPerHour.length; i++) {
       this.cookieTotals = this.cookieTotals + this.cookiesPerHour[i];
     }
-  }());
+  };
 }
+
+Store.prototype.renderStoreData = function (trElem) {
+  makeElem('th', trElem, this.name);
+  for (let i = 0; i < this.cookiesPerHour.length; i++) {
+    makeElem('td', trElem, this.cookiesPerHour[i]);
+  }
+  makeElem('td', trElem, this.cookieTotals);
+};
 
 function addStore(name, minHourlyCust, maxHourlyCust, avgCookieSales) {
   const store = new Store(name, minHourlyCust, maxHourlyCust, avgCookieSales);
-  Store.storeList.push(store);
+  storeList.push(store);
+}
+
+function storeData() {
+  for (let i = 0; i < storeList.length; i++) {
+    storeList[i].getCookiesPerHour();
+    storeList[i].getCookieTotals();
+  }
 }
 
 function renderDataTable() {
@@ -52,9 +59,9 @@ function tableHeader(tableElem) {
 
 function tableBody(tableElem) {
   const tBodyElem = makeElem('tbody', tableElem, null);
-  const trElem = makeElem('tr', tBodyElem, null);
-  for (let i = 0; i < Store.storeList.length; i++) {
-    Store.storeList[i].renderStoreData(trElem);
+  for (let i = 0; i < storeList.length; i++) {
+    const trElem = makeElem('tr', tBodyElem, null);
+    storeList[i].renderStoreData(trElem);
   }
 }
 
@@ -65,22 +72,17 @@ function tableFooter(tableElem) {
   renderTotals(trElem);
 }
 
-Store.prototype.renderStoreData = function (trElem) {
-  makeElem('th', trElem, this.name);
-  for (let i = 0; i < this.cookiesPerHour.length; i++) {
-    makeElem('td', trElem, this.cookiesPerHour[i]);
-  }
-  makeElem('td', trElem, this.cookieTotals);
-};
-
 function renderTotals(trElem) {
+  let dailyTotal = 0;
   for (let hourIndex = 0; hourIndex < hours.length; hourIndex++) {
-    let hourlyTotals = 0;
-    for (let storeArrIndex = 0; storeArrIndex < Store.storeList.length; storeArrIndex++) {
-      hourlyTotals = hourlyTotals + Store.storeList[storeArrIndex].cookiesPerHour[hourIndex];
+    let hourlyTotal = 0;
+    for (let storeArrIndex = 0; storeArrIndex < storeList.length; storeArrIndex++) {
+      hourlyTotal = hourlyTotal + storeList[storeArrIndex].cookiesPerHour[hourIndex];
     }
-    makeElem('td', trElem, hourlyTotals);
+    makeElem('td', trElem, hourlyTotal);
+    dailyTotal = dailyTotal + hourlyTotal;
   }
+  makeElem('td', trElem, dailyTotal);
 }
 
 function makeElem(tagName, parent, textContent) {
@@ -91,3 +93,13 @@ function makeElem(tagName, parent, textContent) {
   parent.appendChild(elem);
   return elem;
 }
+
+const storeList = [];
+const hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
+addStore('Seattle', 23, 65, 6.3);
+addStore('Tokyo', 3, 24, 1.2);
+addStore('Dubai', 11, 38, 3.7);
+addStore('Paris', 20, 38, 2.3);
+addStore('Lima', 2, 16, 4.6);
+storeData();
+renderDataTable();
