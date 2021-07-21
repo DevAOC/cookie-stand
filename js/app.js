@@ -1,4 +1,6 @@
 'use strict';
+const storeList = [];
+const hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 function Store(name, minHourlyCust, maxHourlyCust, avgCookieSales) {
   this.name = name;
   this.minHourlyCust = minHourlyCust;
@@ -94,8 +96,6 @@ function makeElem(tagName, parent, textContent) {
   return elem;
 }
 
-const storeList = [];
-const hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 addStore('Seattle', 23, 65, 6.3);
 addStore('Tokyo', 3, 24, 1.2);
 addStore('Dubai', 11, 38, 3.7);
