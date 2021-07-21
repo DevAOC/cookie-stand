@@ -8,7 +8,7 @@ function Store(name, minHourlyCust, maxHourlyCust, avgCookieSales) {
   this.cookieTotals = 0;
   this.getCookiesPerHour = function() {
     for (let i = 0; i < hours.length; i++) {
-      let custPerHour = Math.random() * (this.maxHourlyCust - this.minHourlyCust + 1) + this.minHourlyCust;
+      let custPerHour = Math.floor(Math.random() * (this.maxHourlyCust - this.minHourlyCust + 1)) + this.minHourlyCust;
       this.cookiesPerHour[i] = Math.floor(custPerHour * this.avgCookieSales);
     }
   };
