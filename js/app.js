@@ -19,7 +19,8 @@ function Store(name, minHourlyCust, maxHourlyCust, avgCookieSales) {
   };
 }
 
-Store.prototype.renderStoreData = function (trElem) {
+Store.prototype.renderStoreData = function (tBodyElem) {
+  const trElem = makeElem('tr', tBodyElem, null);
   makeElem('th', trElem, this.name);
   for (let i = 0; i < this.cookiesPerHour.length; i++) {
     makeElem('td', trElem, this.cookiesPerHour[i]);
@@ -60,8 +61,7 @@ function tableHeader(tableElem) {
 function tableBody(tableElem) {
   const tBodyElem = makeElem('tbody', tableElem, null);
   for (let i = 0; i < storeList.length; i++) {
-    const trElem = makeElem('tr', tBodyElem, null);
-    storeList[i].renderStoreData(trElem);
+    storeList[i].renderStoreData(tBodyElem);
   }
 }
 
