@@ -45,13 +45,20 @@ Store.prototype.renderResults = function(tBodyElem) {
 
 function addStore(name, minHourlyCust, maxHourlyCust, avgCookieSales, address, phoneNumber) {
   const store = new Store(name, minHourlyCust, maxHourlyCust, avgCookieSales, address, phoneNumber);
-  storeList.push(store);
-}
-// Move this to prototype and add this.calculateResults to addStore function
-function calculateAllResults() {
-  for (let i = 0; i < storeList.length; i++) {
-    storeList[i].calculateResults();
+  if (!checkStoreExistance(store)) {
+    store.calculateResults();
+    storeList.push(store);
   }
+}
+
+function checkStoreExistance(store) {
+  let exists = false;
+  for (let i = 0; i < storeList.length; i++) {
+    if(storeList[i].name === store.name) {
+      exists = true;
+    }
+  }
+  return exists;
 }
 
 function makeElem(tagName, parent, textContent) {
@@ -127,12 +134,11 @@ function handleSubmit(event) {
   let phoneNumber = event.target.phoneNumber.value;
   addStore(name, minHourlyCust, maxHourlyCust, avgCookieSales, address, phoneNumber);
   //Need to clear original render and add the new render
-  event.target.reset;
-  tableSectionElem.empty(); //Empties the table element
+  event.target.reset();
+  tableSectionElem.innerHTML = ''; //Empties the table element
   renderDataTable(tableSectionElem);
 }
 // Event listener
-addStoreForm.addEventListener('submit', handleSubmit);
 
 addStore('Seattle', 23, 65, 6.3, '1124 Pike St, Seattle, WA 98101, United States', '+1 206-624-0173');
 addStore('Tokyo', 3, 24, 1.2, '2 Chome-19-23 Aobadai, Meguro City, Tokyo 153-0042, Japan', '+81 3-6417-0202');
@@ -142,7 +148,7 @@ addStore('Lima', 2, 16, 4.6, 'Av Paseo de la República 144, Lima 15001, Peru', 
 
 const tableSectionElem = document.getElementById('storeTable');
 if (tableSectionElem) {
-  calculateAllResults();
+  addStoreForm.addEventListener('submit', handleSubmit);
   renderDataTable(tableSectionElem);
 }
 
