@@ -1,10 +1,12 @@
 'use strict';
 const hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
-function Store(name, minHourlyCust, maxHourlyCust, avgCookieSales) {
+function Store(name, minHourlyCust, maxHourlyCust, avgCookieSales, address, phoneNumber) {
   this.name = name;
   this.minHourlyCust = minHourlyCust;
   this.maxHourlyCust = maxHourlyCust;
   this.avgCookieSales = avgCookieSales;
+  this.address = address;
+  this.phoneNumber = phoneNumber;
   this.cookiesPerHour = [];
   this.cookieTotals = 0;
 }
@@ -59,9 +61,8 @@ function makeElem(tagName, parent, textContent) {
   return elem;
 }
 
-function renderDataTable() {
-  const storesSectionElem = document.getElementById('locations');
-  const tableElem = makeElem('table', storesSectionElem, null);
+function renderDataTable(tableSectionElem) {
+  const tableElem = makeElem('table', tableSectionElem, null);
   tableHeader(tableElem);
   tableBody(tableElem);
   tableFooter(tableElem);
@@ -104,11 +105,31 @@ function renderTotals(trElem) {
   makeElem('td', trElem, dailyTotal);
 }
 
+function renderLocationsInfo(locationsHeaderElem) {
+  for (let i = 0; i < storeList.length; i++) {
+    makeElem('h2', locationsHeaderElem, storeList[i].name);
+    const ulElem = makeElem('ul', locationsHeaderElem, null);
+    makeElem('li', ulElem, storeList[i].address);
+    makeElem('li', ulElem, `Hours: ${hours[0]} - ${hours[hours.length - 1]}`);
+    makeElem('li', ulElem, `Phone: ${storeList[i].phoneNumber}`);
+  }
+}
+
 const storeList = [];
-addStore('Seattle', 23, 65, 6.3);
-addStore('Tokyo', 3, 24, 1.2);
-addStore('Dubai', 11, 38, 3.7);
-addStore('Paris', 20, 38, 2.3);
-addStore('Lima', 2, 16, 4.6);
-calculateAllResults();
-renderDataTable();
+addStore('Seattle', 23, 65, 6.3, '1124 Pike St, Seattle, WA 98101, United States', '+1 206-624-0173');
+addStore('Tokyo', 3, 24, 1.2, '2 Chome-19-23 Aobadai, Meguro City, Tokyo 153-0042, Japan', '+81 3-6417-0202');
+addStore('Dubai', 11, 38, 3.7, 'Centre of Palm Nakheel Mall - Dubai - United Arab Emirates', '+971 4 422 0050');
+addStore('Paris', 20, 38, 2.3, '26 Avenue de l\'Opéra, 75001 Paris, France', '+33 1 40 20 08 37');
+addStore('Lima', 2, 16, 4.6, 'Av Paseo de la República 144, Lima 15001, Peru', '+51 1 5055000');
+
+const tableSectionElem = document.getElementById('storeTable');
+if (tableSectionElem) {
+  calculateAllResults();
+  renderDataTable(tableSectionElem);
+}
+
+const locationsInfoElem = document.getElementById('locationsInfo');
+if (locationsInfoElem) {
+  const locationHeaderElem = makeElem('h1', locationsInfoElem, 'Locations');
+  renderLocationsInfo(locationHeaderElem);
+}
