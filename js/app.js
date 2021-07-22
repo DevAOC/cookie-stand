@@ -96,7 +96,8 @@ function tableFooter(tableElem) {
   makeElem('th', trElem, 'Totals');
   renderTotals(trElem);
 }
-//May need conditional statements for null possibility (check with cookiesPerHour.length 'max') ---- Gotta make this into a prototype
+//Look at notebook for new functions that add beginning and trailing empty spaces
+// Need total hours of operation check (using lowest and highest closing times)
 function renderTotals(trElem) {
   let dailyTotal = 0;
   for (let hourIndex = 0; hourIndex < hours.length; hourIndex++) {
@@ -107,7 +108,7 @@ function renderTotals(trElem) {
     makeElem('td', trElem, hourlyTotal);
     dailyTotal = dailyTotal + hourlyTotal;
   }
-  makeElem('td', trElem, dailyTotal);
+  makeElem('th', trElem, dailyTotal);
 }
 //Modified for new implementation
 function renderLocationsInfo(locationsHeaderElem) {
