@@ -59,9 +59,8 @@ function makeElem(tagName, parent, textContent) {
   return elem;
 }
 
-function renderDataTable() {
-  const storesSectionElem = document.getElementById('locations');
-  const tableElem = makeElem('table', storesSectionElem, null);
+function renderDataTable(tableSectionElem) {
+  const tableElem = makeElem('table', tableSectionElem, null);
   tableHeader(tableElem);
   tableBody(tableElem);
   tableFooter(tableElem);
@@ -104,11 +103,31 @@ function renderTotals(trElem) {
   makeElem('td', trElem, dailyTotal);
 }
 
+function renderLocationsInfo(locationsHeaderElem) {
+  for (let i = 0; i < storeList.length; i++) {
+    makeElem('h2', locationsHeaderElem, storeList[i].name);
+    const ulElem = makeElem('ul', locationsHeaderElem, null);
+    makeElem('li', ulElem, `${storeList[i].address}`);
+    makeElem('li', ulElem, `Hours: ${hours[0]} - ${hours[hours.length - 1]}`);
+    makeElem('li', ulElem, `${storeList[i].phoneNumber}`);
+  }
+}
+
 const storeList = [];
 addStore('Seattle', 23, 65, 6.3);
 addStore('Tokyo', 3, 24, 1.2);
 addStore('Dubai', 11, 38, 3.7);
 addStore('Paris', 20, 38, 2.3);
 addStore('Lima', 2, 16, 4.6);
-calculateAllResults();
-renderDataTable();
+
+const tableSectionElem = document.getElementById('storeTable');
+if (tableSectionElem) {
+  calculateAllResults();
+  renderDataTable(tableSectionElem);
+}
+
+const locationsInfoElem = document.getElementById('locationsInfo');
+if (locationsInfoElem) {
+  const locationHeaderElem = makeElem('h1', locationsInfoElem, 'Locations');
+  renderLocationsInfo(locationHeaderElem);
+}
