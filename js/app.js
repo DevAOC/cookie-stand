@@ -1,12 +1,14 @@
 'use strict';
 const hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
-function Store(name, minHourlyCust, maxHourlyCust, avgCookieSales, address, phoneNumber) {
+function Store(name, minHourlyCust, maxHourlyCust, avgCookieSales, address, phoneNumber, openingTime, closingTime) {
   this.name = name;
   this.minHourlyCust = minHourlyCust;
   this.maxHourlyCust = maxHourlyCust;
   this.avgCookieSales = avgCookieSales;
   this.address = address;
   this.phoneNumber = phoneNumber;
+  this.openingTime = openingTime;
+  this.closingTime = closingTime;
   this.cookiesPerHour = [];
   this.cookieTotals = 0;
 }
@@ -26,12 +28,13 @@ Store.prototype.getCookieTotals = function() {
     this.cookieTotals = this.cookieTotals + this.cookiesPerHour[i];
   }
 };
-
+// Modified for new implementation
 Store.prototype.calculateResults = function () {
+  this.getHoursOfOperation();
   this.calculateCookiesPerHour();
   this.getCookieTotals();
 };
-
+//Needs changes for new implementation
 Store.prototype.renderResults = function(tBodyElem) {
   const trElem = makeElem('tr', tBodyElem, null);
   makeElem('th', trElem, this.name);
@@ -40,9 +43,13 @@ Store.prototype.renderResults = function(tBodyElem) {
   }
   makeElem('td', trElem, this.cookieTotals);
 };
-
-function addStore(name, minHourlyCust, maxHourlyCust, avgCookieSales, address, phoneNumber) {
-  const store = new Store(name, minHourlyCust, maxHourlyCust, avgCookieSales, address, phoneNumber);
+//New method for hours calculation
+Store.prototype.getHoursOfOperation = function() {
+  this.hoursOfOperation = this.closingTime - this.openingTime;
+};
+//addStore modified for new implementation
+function addStore(name, minHourlyCust, maxHourlyCust, avgCookieSales, address, phoneNumber, openingTime, closingTime) {
+  const store = new Store(name, minHourlyCust, maxHourlyCust, avgCookieSales, address, phoneNumber, openingTime, closingTime);
   storeList.push(store);
 }
 
@@ -67,7 +74,7 @@ function renderDataTable(tableSectionElem) {
   tableBody(tableElem);
   tableFooter(tableElem);
 }
-
+//Needs changes for new implementation
 function tableHeader(tableElem) {
   const thead = makeElem('thead', tableElem, null);
   const trElem = makeElem('tr', thead, null);
@@ -91,7 +98,7 @@ function tableFooter(tableElem) {
   makeElem('th', trElem, 'Totals');
   renderTotals(trElem);
 }
-
+//May need conditional statements for null possibility (check with cookiesPerHour.length 'max')
 function renderTotals(trElem) {
   let dailyTotal = 0;
   for (let hourIndex = 0; hourIndex < hours.length; hourIndex++) {
@@ -104,27 +111,28 @@ function renderTotals(trElem) {
   }
   makeElem('td', trElem, dailyTotal);
 }
-
+//Modified for new implementation
 function renderLocationsInfo(locationsHeaderElem) {
   for (let i = 0; i < storeList.length; i++) {
     makeElem('h2', locationsHeaderElem, storeList[i].name);
     const ulElem = makeElem('ul', locationsHeaderElem, null);
     makeElem('li', ulElem, `${storeList[i].address}`);
-    makeElem('li', ulElem, `Hours: ${hours[0]} - ${hours[hours.length - 1]}`);
+    makeElem('li', ulElem, `Hours: ${storeList[i].openingTime} - ${storeList[i].closingTime}`);
     makeElem('li', ulElem, `${storeList[i].phoneNumber}`);
   }
 }
 
 const storeList = [];
-addStore('Seattle', 23, 65, 6.3, '1124 Pike St, Seattle, WA 98101, United States', '+1 206-624-0173');
-addStore('Tokyo', 3, 24, 1.2, '2 Chome-19-23 Aobadai, Meguro City, Tokyo 153-0042, Japan', '+81 3-6417-0202');
-addStore('Dubai', 11, 38, 3.7, 'Centre of Palm Nakheel Mall - Dubai - United Arab Emirates', '+971 4 422 0050');
-addStore('Paris', 20, 38, 2.3, '26 Avenue de l\'Opéra, 75001 Paris, France', '+33 1 40 20 08 37');
-addStore('Lima', 2, 16, 4.6, 'Av Paseo de la República 144, Lima 15001, Peru', '+51 1 5055000');
 
+addStore('Seattle', 23, 65, 6.3, '1124 Pike St, Seattle, WA 98101, United States', '+1 206-624-0173', 6, 20);
+addStore('Tokyo', 3, 24, 1.2, '2 Chome-19-23 Aobadai, Meguro City, Tokyo 153-0042, Japan', '+81 3-6417-0202', 6, 20);
+addStore('Dubai', 11, 38, 3.7, 'Centre of Palm Nakheel Mall - Dubai - United Arab Emirates', '+971 4 422 0050', 6, 20);
+addStore('Paris', 20, 38, 2.3, '26 Avenue de l\'Opéra, 75001 Paris, France', '+33 1 40 20 08 37', 6, 20);
+addStore('Lima', 2, 16, 4.6, 'Av Paseo de la República 144, Lima 15001, Peru', '+51 1 5055000', 6, 20);
+
+calculateAllResults();
 const tableSectionElem = document.getElementById('storeTable');
 if (tableSectionElem) {
-  calculateAllResults();
   renderDataTable(tableSectionElem);
 }
 
@@ -133,3 +141,6 @@ if (locationsInfoElem) {
   const locationHeaderElem = makeElem('h1', locationsInfoElem, 'Locations');
   renderLocationsInfo(locationHeaderElem);
 }
+
+
+//Will need to check for what time each store opens and closes and reference to the min opening and closing time --- need a new function for highestClosingTime ---- functions for adding td for each empty td that is needed and subtracting for the same reason
