@@ -1,5 +1,4 @@
 'use strict';
-const hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 function Store(name, minHourlyCust, maxHourlyCust, avgCookieSales, address, phoneNumber, openingTime, closingTime) {
   this.name = name;
   this.minHourlyCust = minHourlyCust;
@@ -68,8 +67,7 @@ function makeElem(tagName, parent, textContent) {
   return elem;
 }
 
-function renderDataTable(tableSectionElem) {
-  const tableElem = makeElem('table', tableSectionElem, null);
+function renderDataTable(tableElem) {
   tableHeader(tableElem);
   tableBody(tableElem);
   tableFooter(tableElem);
@@ -98,7 +96,7 @@ function tableFooter(tableElem) {
   makeElem('th', trElem, 'Totals');
   renderTotals(trElem);
 }
-//May need conditional statements for null possibility (check with cookiesPerHour.length 'max')
+//May need conditional statements for null possibility (check with cookiesPerHour.length 'max') ---- Gotta make this into a prototype
 function renderTotals(trElem) {
   let dailyTotal = 0;
   for (let hourIndex = 0; hourIndex < hours.length; hourIndex++) {
@@ -131,9 +129,9 @@ addStore('Paris', 20, 38, 2.3, '26 Avenue de l\'Opéra, 75001 Paris, France', '+
 addStore('Lima', 2, 16, 4.6, 'Av Paseo de la República 144, Lima 15001, Peru', '+51 1 5055000', 6, 20);
 
 calculateAllResults();
-const tableSectionElem = document.getElementById('storeTable');
-if (tableSectionElem) {
-  renderDataTable(tableSectionElem);
+const tableElem = document.getElementById('storeTable');
+if (tableElem) {
+  renderDataTable(tableElem);
 }
 
 const locationsInfoElem = document.getElementById('locationsInfo');
@@ -143,4 +141,4 @@ if (locationsInfoElem) {
 }
 
 
-//Will need to check for what time each store opens and closes and reference to the min opening and closing time --- need a new function for highestClosingTime ---- functions for adding td for each empty td that is needed and subtracting for the same reason
+//Will need to check for what time each store opens and closes and reference to the min opening and closing time --- need a new function for highestClosingTime ---- functions for adding td for each empty td that is needed and subtracting for the same reason --- need to make a function that changes 24 hour clock times to 12 hour clock times
