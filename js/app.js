@@ -1,5 +1,7 @@
 'use strict';
 const hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
+const storeList = [];
+const addStoreForm = document.getElementById('addStoreForm');
 function Store(name, minHourlyCust, maxHourlyCust, avgCookieSales, address, phoneNumber) {
   this.name = name;
   this.minHourlyCust = minHourlyCust;
@@ -45,7 +47,7 @@ function addStore(name, minHourlyCust, maxHourlyCust, avgCookieSales, address, p
   const store = new Store(name, minHourlyCust, maxHourlyCust, avgCookieSales, address, phoneNumber);
   storeList.push(store);
 }
-
+// Move this to prototype and add this.calculateResults to addStore function
 function calculateAllResults() {
   for (let i = 0; i < storeList.length; i++) {
     storeList[i].calculateResults();
@@ -115,7 +117,23 @@ function renderLocationsInfo(locationsHeaderElem) {
   }
 }
 
-const storeList = [];
+function handleSubmit(event) {
+  event.preventDefault(); //Only needed for forms
+  let name = event.target.name.value;
+  let minHourlyCust = event.target.minHourlyCust.value;
+  let maxHourlyCust = event.target.maxHourlyCust.value;
+  let avgCookieSales = event.target.avgCookieSales.value;
+  let address = event.target.address.value;
+  let phoneNumber = event.target.phoneNumber.value;
+  addStore(name, minHourlyCust, maxHourlyCust, avgCookieSales, address, phoneNumber);
+  //Need to clear original render and add the new render
+  event.target.reset;
+  tableSectionElem.empty(); //Empties the table element
+  renderDataTable(tableSectionElem);
+}
+// Event listener
+addStoreForm.addEventListener('submit', handleSubmit);
+
 addStore('Seattle', 23, 65, 6.3, '1124 Pike St, Seattle, WA 98101, United States', '+1 206-624-0173');
 addStore('Tokyo', 3, 24, 1.2, '2 Chome-19-23 Aobadai, Meguro City, Tokyo 153-0042, Japan', '+81 3-6417-0202');
 addStore('Dubai', 11, 38, 3.7, 'Centre of Palm Nakheel Mall - Dubai - United Arab Emirates', '+971 4 422 0050');

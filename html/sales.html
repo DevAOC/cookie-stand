@@ -20,8 +20,36 @@
       </section>
     </header>
     <main>
-      <h1>Locations:</h1>
-      <section id="storeTable">
+      <section>
+        <form action="" id="addStoreForm">
+          <fieldset>
+            <legend>New Store</legend>
+            <label for="">Location
+              <input type="text" name="name" required="required">
+            </label>
+            <label for="">Minimum Customers Per Hour
+              <input type="number" name="minHourlyCust" required="required">
+            </label>
+            <label for="">Maximum Customers Per Hour
+              <input type="number" name="maxHourlyCust" required="required">
+            </label>
+            <label for="">Average Cookies Per Customer
+                <input type="number" step="0.1" name="avgCookieSales" required="required">
+            </label>
+            <label for="">Address
+              <input type="text" name="address" required="required">
+            </label>
+            <label for="">Phone Number
+              <input type="text" name="phoneNumber" required="required">
+            </label>
+            <button type="submit">Add Store</button>
+          </fieldset>
+        </form>
+      </section>
+      <section>
+        <h1>Locations:</h1>
+        <section id="storeTable">
+        </section>
       </section>
     </main>
     <footer>
