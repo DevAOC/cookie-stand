@@ -133,7 +133,6 @@ function handleSubmit(event) {
   let address = event.target.address.value;
   let phoneNumber = event.target.phoneNumber.value;
   addStore(name, minHourlyCust, maxHourlyCust, avgCookieSales, address, phoneNumber);
-  //Need to clear original render and add the new render
   event.target.reset();
   tableSectionElem.innerHTML = ''; //Empties the table element
   renderDataTable(tableSectionElem);

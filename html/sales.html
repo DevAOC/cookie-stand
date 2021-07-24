@@ -2,15 +2,18 @@
 <html>
   <head>
     <title>Stores And Hourly Sales</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Martel:wght@200&family=Raleway:wght@100&display=swap" rel="stylesheet">
     <link href="../css/reset.css" rel="stylesheet"/>
     <link href="../css/style.css" rel="stylesheet"/>
     <script defer src="../js/app.js"></script>
     <!-- add a custom google font -->
   </head>
-  <body>
+  <body id="sales">
     <header>
       <section>
-        <img src="../img/salmon.png" alt="">
+        <img class="logo" src="../img/salmon.png" alt="">
         <nav>
           <ul>
             <li><a href="../index.html">Homepage</a></li>
@@ -21,9 +24,13 @@
     </header>
     <main>
       <section>
-        <form action="" id="addStoreForm">
-          <fieldset>
-            <legend>New Store</legend>
+        <h1>For Authorized Use Only</h1>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quas sequi animi ullam cum, rerum reprehenderit, autem sapiente aliquam qui, placeat error itaque quos! Optio dolor iusto nam nesciunt minus quisquam ipsam obcaecati ducimus rem quia sint facilis tempora soluta est, modi eius aspernatur iste, molestiae quasi magnam quam quae molestias? Ut aperiam omnis nostrum enim aliquid, accusantium ipsum, praesentium alias reprehenderit quaerat possimus temporibus minima, optio doloribus ad modi sed autem quasi. Possimus, maxime? Quidem laborum eum, tempora maiores vel ipsam ipsum consectetur repellat tenetur velit reiciendis? Dolorem tempora culpa quisquam vitae iure. Nobis laboriosam sint odit nostrum doloribus architecto delectus excepturi debitis rerum minus mollitia autem itaque, aspernatur expedita cum earum atque labore aut eos fuga eligendi, quae aliquam, hic temporibus! Eum, reprehenderit? Magni, ullam? Vel at doloremque quibusdam sed enim reiciendis pariatur a illo officia ut ex cumque repellat vero optio molestias voluptatem nam culpa, dicta earum, consequatur rerum ratione suscipit. Pariatur natus reiciendis minima totam animi? Tempore, alias sunt, natus praesentium nisi vero consectetur nulla eligendi possimus ipsa molestias deserunt omnis esse enim maxime voluptas deleniti mollitia? Veniam temporibus quibusdam, doloribus qui voluptas nihil nulla esse optio magnam excepturi quisquam sit eos officiis, repudiandae sequi quos molestias!</p>
+      </section>
+      <form action="" id="addStoreForm">
+        <fieldset>
+          <legend>New Store</legend>
+          <section>
             <label for="">Location
               <input type="text" name="name" required="required">
             </label>
@@ -43,13 +50,13 @@
               <input type="text" name="phoneNumber" required="required">
             </label>
             <button type="submit">Add Store</button>
-          </fieldset>
-        </form>
-      </section>
-      <section>
-        <h1>Locations:</h1>
-        <section id="storeTable">
-        </section>
+          </section>
+        </fieldset>
+      </form>
+      <section id="tableSection">
+        <h1>Locations</h1>
+        <table id="storeTable">
+        </table>
       </section>
     </main>
     <footer>

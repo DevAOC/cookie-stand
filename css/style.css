@@ -1,0 +1,116 @@
+body {
+  font-family: 'Martel', serif;
+  color:cadetblue;
+}
+/* Gotta change the font families for specs */
+/* Dont Fuck with this! */
+body {
+  display: flex;
+  flex-direction: column;
+  /* font-family: 'Martel', serif; */
+  background-color: cornsilk;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+/* All elements of the header */
+header {
+  background-color: gray;
+  display: flex;
+  height: 90px;
+  padding: auto;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 15px;
+}
+/* New content */
+h1, h2, h3 {
+  font-family: 'Martel';
+  color:coral;
+}
+.logo {
+  height: 70px;
+}
+nav {
+  display: flex;
+}
+nav ul {
+  justify-content: flex-end;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+/* Dont fuck with this section!!!! */
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+.container {
+  width: 960px;
+}
+section {
+  width: 960px;
+  display: flex;
+  /* justify-content: center; */
+}
+article {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+ul {
+  width: 760px;
+  justify-content: flex-start;
+  display: flex;
+  align-items: center;
+}
+li {
+  font-size: large;
+  margin-left: 4%;
+  margin-right: 6%;
+}
+
+/* All elements of the main */
+/* Dont fuck with this section! */
+
+/* New */
+#sales * {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+#locationsInfo {
+  justify-content: center;
+}
+main > section {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  border: solid black 1px;
+  background-color:lightskyblue;
+  height: 200px;
+}
+table {
+  /* font-family: 'Raleway', sans-serif; */
+  text-align: center;
+  border: black solid 1px;
+  background-color:lightskyblue;
+}
+th, td {
+  padding: 7px;
+  border: solid black 1px;
+  font-family: 'Bauhaus', sans-serif;
+  color: aliceblue;
+}
+/* Footer */
+footer {
+  background-color: gray;
+  width: 100%;
+  margin-top: 15px;
+  height: 125px;
+}
